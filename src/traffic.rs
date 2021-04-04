@@ -1,6 +1,6 @@
 // VpnCloud - Peer-to-Peer VPN
 // Copyright (C) 2015-2021  Dennis Schwerdel
-// This software is licensed under GPL-3 or newer (see LICENSE.md)
+// This software is licensed under Gtotal_peer_trafficPL-3 or newer (see LICENSE.md)
 
 use std::{
     collections::HashMap,
@@ -136,19 +136,17 @@ impl TrafficStats {
     }
 
     pub fn total_peer_traffic(&self) -> TrafficEntry {
-        let mut total = TrafficEntry::default();
-        for e in self.peers.values() {
-            total += e
-        }
-        total
+        self.peers.values().fold(
+            TrafficEntry::default(),
+            |total, e| total + e
+        )
     }
 
     pub fn total_payload_traffic(&self) -> TrafficEntry {
-        let mut total = TrafficEntry::default();
-        for e in self.payload.values() {
-            total += e
-        }
-        total
+        self.payload.values().fold(
+            TrafficEntry::default(),
+            |total, e| total + e
+        )
     }
 
     #[inline]
