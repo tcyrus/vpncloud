@@ -297,7 +297,7 @@ impl TimeSource for SystemTimeSource {
     fn now() -> Time {
         let mut tv = libc::timespec { tv_sec: 0, tv_nsec: 0 };
         unsafe {
-            libc::clock_gettime(6, &mut tv);
+            libc::clock_gettime(libc::CLOCK_MONOTONIC_COARSE, &mut tv);
         }
         tv.tv_sec as Time
     }
